@@ -35,7 +35,7 @@ std::unique_ptr<OnlineCtcModel> OnlineCtcModel::Create(
     return std::make_unique<OnlineZipformer2CtcModel>(config);
   } else if (!config.nemo_ctc.model.empty()) {
     return std::make_unique<OnlineNeMoCtcModel>(config);
-  } else if (!config.t_one_ctc.model.empty()) {
+  } else if (!config.t_one_ctc.model.empty() || !config.t_one_ctc.model_buf.empty()) {
     return std::make_unique<OnlineToneCtcModel>(config);
   } else {
     SHERPA_ONNX_LOGE("Please specify a CTC model");
@@ -52,7 +52,7 @@ std::unique_ptr<OnlineCtcModel> OnlineCtcModel::Create(
     return std::make_unique<OnlineZipformer2CtcModel>(mgr, config);
   } else if (!config.nemo_ctc.model.empty()) {
     return std::make_unique<OnlineNeMoCtcModel>(mgr, config);
-  } else if (!config.t_one_ctc.model.empty()) {
+  } else if (!config.t_one_ctc.model.empty() || !config.t_one_ctc.model_buf.empty()) {
     return std::make_unique<OnlineToneCtcModel>(mgr, config);
   } else {
     SHERPA_ONNX_LOGE("Please specify a CTC model");

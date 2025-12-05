@@ -150,7 +150,7 @@ bool OnlineModelConfig::Validate() const {
     return nemo_ctc.Validate();
   }
 
-  if (!t_one_ctc.model.empty()) {
+  if (!t_one_ctc.model.empty() || !t_one_ctc.model_buf.empty()) {
     return t_one_ctc.Validate();
   }
 
@@ -158,7 +158,12 @@ bool OnlineModelConfig::Validate() const {
     return false;
   }
 
-  return transducer.Validate();
+  // Only validate transducer if it's actually being used
+  if (!transducer.encoder.empty()) {
+    return transducer.Validate();
+  }
+
+  return true;
 }
 
 std::string OnlineModelConfig::ToString() const {

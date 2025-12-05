@@ -86,7 +86,8 @@ std::unique_ptr<OnlineRecognizerImpl> OnlineRecognizerImpl::Create(
   if (!config.model_config.wenet_ctc.model.empty() ||
       !config.model_config.zipformer2_ctc.model.empty() ||
       !config.model_config.nemo_ctc.model.empty() ||
-      !config.model_config.t_one_ctc.model.empty()) {
+      !config.model_config.t_one_ctc.model.empty() ||
+      !config.model_config.t_one_ctc.model_buf.empty()) {
     return std::make_unique<OnlineRecognizerCtcImpl>(config);
   }
 

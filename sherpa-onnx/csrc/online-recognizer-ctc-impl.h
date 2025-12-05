@@ -186,7 +186,8 @@ class OnlineRecognizerCtcImpl : public OnlineRecognizerImpl {
     // TODO(fangjun): Remember to change these constants if needed
     int32_t frame_shift_ms = 10;
     int32_t subsampling_factor = 4;
-    if (!config_.model_config.t_one_ctc.model.empty()) {
+    if (!config_.model_config.t_one_ctc.model.empty() ||
+        !config_.model_config.t_one_ctc.model_buf.empty()) {
       // each input frame is of 300ms long, which produces 10 output frames.
       // so frame_shift_ms is 300/10 = 30ms
       //
@@ -253,7 +254,8 @@ class OnlineRecognizerCtcImpl : public OnlineRecognizerImpl {
       config_.feat_config.normalize_samples = false;
     }
 
-    if (!config_.model_config.t_one_ctc.model.empty()) {
+    if (!config_.model_config.t_one_ctc.model.empty() ||
+        !config_.model_config.t_one_ctc.model_buf.empty()) {
       config_.feat_config.is_t_one = true;
       config_.feat_config.frame_length_ms = 300;
       config_.feat_config.frame_shift_ms = 300;

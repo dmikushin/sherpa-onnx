@@ -18,6 +18,11 @@ void OnlineToneCtcModelConfig::Register(ParseOptions *po) {
 }
 
 bool OnlineToneCtcModelConfig::Validate() const {
+  // If model_buf is provided, no need to check file
+  if (!model_buf.empty()) {
+    return true;
+  }
+
   if (!FileExists(model)) {
     SHERPA_ONNX_LOGE("T-one CTC model '%s' does not exist", model.c_str());
     return false;

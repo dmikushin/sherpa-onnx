@@ -12,6 +12,10 @@ namespace sherpa_onnx {
 
 struct OnlineToneCtcModelConfig {
   std::string model;
+  /// if model_buf is non-empty,
+  /// the model will be loaded from the buffer instead of from the
+  /// "model" file
+  std::string model_buf;
 
   OnlineToneCtcModelConfig() = default;
 
