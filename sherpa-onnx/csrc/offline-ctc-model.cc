@@ -114,7 +114,7 @@ std::unique_ptr<OfflineCtcModel> OfflineCtcModel::Create(
     const OfflineModelConfig &config) {
   if (!config.dolphin.model.empty()) {
     return std::make_unique<OfflineDolphinModel>(config);
-  } else if (!config.nemo_ctc.model.empty()) {
+  } else if (!config.nemo_ctc.model.empty() || !config.nemo_ctc.model_buf.empty()) {
     return std::make_unique<OfflineNemoEncDecCtcModel>(config);
   } else if (!config.tdnn.model.empty()) {
     return std::make_unique<OfflineTdnnCtcModel>(config);
