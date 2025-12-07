@@ -12,6 +12,10 @@ namespace sherpa_onnx {
 
 struct OfflineNemoEncDecCtcModelConfig {
   std::string model;
+  /// if model_buf is non-empty,
+  /// the model will be loaded from the buffer instead of from the
+  /// "model" file
+  std::string model_buf;
 
   OfflineNemoEncDecCtcModelConfig() = default;
   explicit OfflineNemoEncDecCtcModelConfig(const std::string &model)

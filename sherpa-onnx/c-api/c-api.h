@@ -427,6 +427,10 @@ SHERPA_ONNX_API typedef struct SherpaOnnxOfflineParaformerModelConfig {
 
 SHERPA_ONNX_API typedef struct SherpaOnnxOfflineNemoEncDecCtcModelConfig {
   const char *model;
+  /// if non-null, loading the model from the buffer instead of from file
+  const char *model_buf;
+  /// byte size of the model buffer
+  int32_t model_buf_size;
 } SherpaOnnxOfflineNemoEncDecCtcModelConfig;
 
 SHERPA_ONNX_API typedef struct SherpaOnnxOfflineWhisperModelConfig {

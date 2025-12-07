@@ -415,6 +415,12 @@ static sherpa_onnx::OfflineRecognizerConfig GetOfflineRecognizerConfig(
 
   recognizer_config.model_config.nemo_ctc.model =
       SHERPA_ONNX_OR(config->model_config.nemo_ctc.model, "");
+  if (config->model_config.nemo_ctc.model_buf &&
+      config->model_config.nemo_ctc.model_buf_size > 0) {
+    recognizer_config.model_config.nemo_ctc.model_buf = std::string(
+        config->model_config.nemo_ctc.model_buf,
+        config->model_config.nemo_ctc.model_buf_size);
+  }
 
   recognizer_config.model_config.whisper.encoder =
       SHERPA_ONNX_OR(config->model_config.whisper.encoder, "");

@@ -34,8 +34,14 @@ class OfflineNemoEncDecCtcModel::Impl {
         env_(ORT_LOGGING_LEVEL_ERROR),
         sess_opts_(GetSessionOptions(config)),
         allocator_{} {
-    auto buf = ReadFile(config_.nemo_ctc.model);
-    Init(buf.data(), buf.size());
+    // If model_buf is provided, use it directly; otherwise read from file
+    if (!config_.nemo_ctc.model_buf.empty()) {
+      Init(config_.nemo_ctc.model_buf.data(),
+           config_.nemo_ctc.model_buf.size());
+    } else {
+      auto buf = ReadFile(config_.nemo_ctc.model);
+      Init(buf.data(), buf.size());
+    }
   }
 
   template <typename Manager>
@@ -89,8 +95,8 @@ class OfflineNemoEncDecCtcModel::Impl {
   bool IsGigaAM() const { return is_giga_am_; }
 
  private:
-  void Init(void *model_data, size_t model_data_length) {
-    sess_ = std::make_unique<Ort::Session>(env_, model_data, model_data_length,
+  void Init(const void *model_data, size_t model_data_length) {
+    sess_ = std::make_unique<Ort::Session>(env_, const_cast<void*>(model_data), model_data_length,
                                            sess_opts_);
 
     GetInputNames(sess_.get(), &input_names_, &input_names_ptr_);
